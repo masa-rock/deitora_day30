@@ -1,0 +1,1571 @@
+@charset "utf-8";
+// googleフォントを使うためのリンク
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+// レスポンシブ
+$layout-width-inner:1200px;
+$breakpoints: (
+ "sm": "screen and (max-width: 767px)",
+ "md": "screen and (min-width: 768px)",
+) !default;
+
+@mixin mq($breakpoint:sp) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+// ------------------------------------------------------------------------
+// common
+// ------------------------------------------------------------------------
+
+// *{
+//   outline: 1px solid blue;
+// }
+
+$font-jp:"游ゴシック対",YuGothic,serif;
+// googleフォントにて指定。
+$font-en:'Montserrat',sans-serif;
+$font-main:#3E3E3E;
+
+@include mq(sm) {
+  .is-pc{
+    display:none;
+  }
+}
+
+@include mq(md) {
+  .is-sp{
+    display:none;
+  }
+}
+
+body{
+  font-family: $font-jp;
+  line-height: 1.1875;
+  font-size:16px;
+  letter-spacing: 0.4pt;
+  color:$font-main;
+}
+
+img{
+  width:100%;
+  height:auto;
+}
+
+.inner{
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: content-box;
+  line-height: 1;
+}
+
+.main{
+  background: #F3F3F3;
+}
+
+.section-title{
+  font-size: 36px;
+  font-weight: 600; 
+  font-family: $font-en;
+  line-height: 1;
+  @include mq(sm){
+    font-size:30px;
+  }
+}
+// ------------------------------------------------------------------------
+// header
+// ------------------------------------------------------------------------
+.header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  // width: 100%;
+  height:83px;
+  background:#FFFFFF1A;
+  z-index: 100;
+  font-family: $font-en;
+  @include mq(sm){
+    height:68px;
+    background: #FFFFFF;
+  }
+  &.is-open{
+    position:block;
+  }
+}
+
+.header-inner{
+  display: flex;
+  justify-content: center;
+  @include mq(sm){
+    display: block;
+    padding:0 16px;
+  }
+}
+
+.header-title-sp{
+  display: none;
+  @include mq(sm){
+    display: block;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 68px;
+    font-family: $font-en;
+    // line-height: 1;
+  }
+}
+
+.header-nav{
+  @include mq(sm){
+    padding:90px 0;
+  }
+}
+
+.header-nav-list{
+  // リスト要素の並び替えがしたいため、smでもflexにする。
+  display: flex;
+  @include mq(md){
+    justify-content: center;
+  }
+  @include mq(sm){
+    // flex要素を縦並びにする。
+    flex-flow: column;
+  }
+}
+
+.header-nav-item{
+  letter-spacing: -0.4px;
+  line-height:83px;
+  position:relative;
+  @include mq(sm){
+    margin-top: 40px;
+    text-align: center;
+    // レスポンシブ時は順番を並び替える。（liをflexにする必要がある。）
+    &:nth-child(6){
+      order:1;
+    }
+    &:nth-child(4){
+      order:2;
+    }
+    &:nth-child(5){
+      order:3;
+    }
+    &:nth-child(7){
+      order:4;
+    }
+  }
+  & + &{
+    margin-left:40px;
+    @include mq(sm){
+      text-align: center;
+      margin:0;
+    }
+  }
+}
+
+.header-nav-item-link{
+  color:$font-main;
+  @include mq(sm){
+    font-size: 18px;
+    height:54px;
+  }
+  &:hover{
+    padding-bottom:5.5px;
+    border-bottom: 1px solid #3E3E3E;
+  }
+}
+
+
+// drawer
+#modal{
+  position:fixed;
+  width: 100%;
+  height: 100%;
+  background: $font-main;
+  z-index: 100;
+  opacity: 0;
+  transition:opacity 1s;
+  display: none;
+  &.modal-on{
+    opacity:0.7;
+    display: block;
+  }
+}
+
+.drawer-hamburger{  
+  position:fixed;
+  top:10px;
+  z-index: 400;
+  background: url(../img/PC/hamburger.png) no-repeat center center / 26px;
+  &.is-open{
+    background: url(../img/PC/batsu@2x.png) no-repeat center center / 26px;
+  }
+  .drawer-hamburger-icon{
+    display: none;
+  }
+}
+
+.drawer-nav{
+  width:300px;
+  z-index: 105;
+}
+
+.drawer--right .drawer-nav{
+  // レスポンシブのリストのはみ出しを抑える。
+  right: -19rem;
+}
+
+.header-nav-md .header-nav-list-md{
+  @include mq(md){
+    display: none;
+  }
+}
+
+.drawer--right.drawer-open .drawer-hamburger{
+  right: 18.6rem;
+}
+// ------------------------------------------------------------------------
+// top
+// ------------------------------------------------------------------------
+.top{
+  position:relative;
+}
+
+.top-picture{
+  background:url(../img/PC/mv.png) no-repeat center center / cover;
+  height:649px;
+  @include mq(sm){
+    background:url(../img/PC/mv.png) no-repeat left 22% center / cover;
+    height:667px;
+  }
+}
+
+.top-message{
+  position:absolute;
+  top:228px;
+  right:0;
+  padding-right: 40px;
+  max-width:640px;
+  @include mq(sm){
+    padding:0 16px 0;
+    top:222px;
+  }
+}
+
+.top-message-title{
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: 0.02px;
+  line-height: 1.5;
+  @include mq(sm){
+    font-size:24px;
+    line-height: 1.667;
+  }
+}
+
+.top-message-text{
+  padding-top:29px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height:1.555;
+  @include mq(sm){
+    font-size:14px;
+    letter-spacing: 0;
+    padding-top:20px;
+  }
+}
+
+.top-btn{
+  display:block;
+  color:#FFFFFF;
+  text-align: center;
+  background: #FFAA3B;
+  box-shadow: 0px 3px 5px #3E3E3E33;
+  border-radius:10px;
+  font-size:18px;
+  font-weight: 700;
+  margin-top:36px;
+  @include mq(md){
+    // ボタン幅、paddingで指定したほうが良くない？
+    width:282px;
+    height:50px;
+    line-height: 50px;
+  }
+  @include mq(sm){
+    width:222px;
+    margin:25px auto;
+    font-size:16px;
+    letter-spacing: 0;
+    padding:14px 30px;
+  }
+}
+
+// ------------------------------------------------------------------------
+// News
+// ------------------------------------------------------------------------
+.news{
+  @include mq(sm){
+    height:574px;
+    position:relative;
+  }
+}
+
+
+.news_inner{
+  @include mq(md){
+    margin:120px 0;
+    padding-bottom: 40px;
+  }
+  background: #FFFFFF;
+  box-shadow: 0px 5px 12px #3E3E3E33;
+  @include mq(sm){
+    position:absolute;
+    top: -39px;
+    left:0px;
+    margin:0 16px;
+  }
+}
+
+.news-head{
+  padding-top:63px;
+  text-align: center;
+  @include mq(sm){
+    padding:43px 0;
+  }
+}
+
+.news-items{
+  @include mq(md){
+    margin:64px 60px 43px;
+  }
+}
+
+.news-item{
+  padding:38px 0;
+  border-bottom:solid 1px #CECDCD;
+  &:nth-child(1){
+    border-top:solid 1px #CECDCD;
+  }
+  @include mq(sm){
+    padding:13px 0 10px 16px;
+  }
+  &:hover{
+  background:#4973FF1A;
+  }
+    
+}
+
+.news-item-link{
+  display:flex;
+  align-items: center;
+  color:$font-main;
+  @include mq(sm){
+    display:block;
+    position:relative;
+    &::after{
+      content:"";
+      position:absolute;
+      background: url(../img/PC/news-arrow.png) no-repeat center center / contain;
+      width:13px;
+      height:100%;
+      right:16px;
+      top:50%;
+      transform: translateY(-50%);
+  }
+  }
+}
+
+.news-meta{
+  flex: 0 0 300px;
+  display: flex;
+  align-items: center;
+
+}
+
+.news-date{
+  letter-spacing: 0.45px;
+  font-family: $font-en;
+  font-size: 18px;
+  @include mq(sm){
+    font-size:14px;
+  }
+}
+
+.news-text{
+  display: inline-block;
+  margin:0 39px;
+  width:120px;
+  height:30px;
+  line-height: 30px;
+  border: 2px solid #3B69FF;
+  border-radius: 50px;
+  text-align: center;
+  font-size:14px;
+  letter-spacing: 0.35px;
+  @include mq(sm){
+    font-size:12px;
+    width:80px;
+    height:20px;
+    margin:0 23px;
+    line-height: 18px;
+    position:relative;
+  }
+}
+
+.news-content{
+  line-height: 1.555;
+  flex: 0 1 100%;
+  font-size: 18px;
+  padding-right:83px;
+  position:relative;
+  @include mq(md){
+    &::after{
+      content:"";
+      position:absolute;
+      background: url(../img/PC/news-arrow.png) no-repeat center center / contain;
+      width:13px;
+      height:100%;
+      right:16px;
+      top:50%;
+      transform: translateY(-50%);
+  }
+}
+  @include mq(sm){
+    font-size:14px;
+    line-height:1.4286;
+    padding:10px 55px 0 0;
+    letter-spacing: 0;
+  }
+  
+}
+
+.news-btn{
+  @include mq(sm){
+    padding:40px 0;
+  }
+}
+
+.news-btn-link{
+  font-family: $font-en;
+  display: block;
+  width:236px;
+  height:64px;
+  line-height: 64px;
+  margin: 0 auto;
+  font-size: 20px;
+  color:$font-main;
+  letter-spacing: 5.2px;
+  text-align: center;
+  border: 1px solid #707070;
+  transition: all 0.5s;
+  @include mq(sm){
+    width:268px;
+    height:54px;
+    line-height: 54px;
+    margin: 40 auto;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 3.6px;
+  }
+  &:hover{
+    background: #3E3E3E;
+    color:#FFFFFF;
+  }
+}
+
+// ------------------------------------------------------------------------
+// service
+// ------------------------------------------------------------------------
+.service{
+  @include mq(sm){
+    height: 870px;
+  }
+}
+.service-inner{
+  margin:0 0 215px;
+  background: $font-main;
+  @include mq(md){
+    height:400px;
+  }
+  @include mq(sm){
+    height:480px;
+  }
+}
+
+.service-link{
+  &:hover{
+      padding-bottom:5.5px;
+      border-bottom: 1px solid #3E3E3E;
+  }
+}
+
+.service-head{
+  text-align:center;
+  color:#FFFFFF;
+  padding:65px 0;
+  @include mq(sm){
+    padding:43px 0;
+  }
+}
+
+.service-items{
+
+  background: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0px 5px 12px #3E3E3E33;
+  @include mq(md){
+    width:75%;
+    margin:0 auto;
+    height:330px;  
+  }
+  @include mq(sm){
+    display:block;
+    max-width: 100%;
+    margin:0px 16px;
+    padding:40px 16px 0;
+  }
+}
+
+.service-item{
+  @include mq(md){
+    padding:60px 0;
+  }
+  @include mq(sm){
+    padding-bottom:21px;
+  }
+}
+
+.service-img{
+  display: block;
+  height:64px;
+  width: 64px;
+
+  margin:0 auto;
+  position:relative;
+  img{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    padding:0 7px;
+  }
+}
+
+.service-body{
+  margin:0 auto;
+  color:$font-main;
+}
+
+.service-title{
+  font-family: $font-en;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 4px;
+  line-height: 1.4;
+  padding-top:4px;
+  text-align: center;
+  @include mq(sm){
+    line-height:1.2;
+    padding-top:7px;
+  }
+}
+
+.service-text{
+  font-size: 14px;
+  line-height: 1.714;
+  padding:16px 46px;
+  letter-spacing: 0;
+  @include mq(sm){
+    padding:16px 0;
+  }
+}
+
+// ------------------------------------------------------------------------
+// results
+// ------------------------------------------------------------------------
+
+.results{
+  @include mq(md){
+    margin-left:40px;
+  }
+  background: #3E3E3E;
+  @include mq(sm){
+    padding-bottom:40px;
+  }
+}
+
+.results-head{
+  padding:65px 59px;
+  color:#fff;
+  @include mq(sm){
+    text-align: center;
+    padding:44px 0;
+  }
+}
+
+.results-container{
+  margin-left:60px;
+  @include mq(sm){
+    margin-left:16px;
+  }
+}
+
+.results-link{
+  display:block;
+  background: #FFFFFF;
+  color:$font-main;
+}
+
+.results-body{
+  padding:16px;
+  @include mq(sm){
+    padding:12px;
+  }
+}
+
+.results-title{
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0;
+  @include mq(sm){
+    font-size:14px;
+  }
+}
+
+.results-text{
+  padding-top:8px;
+  line-height: 1.5;
+  @include mq(sm){
+    font-size:12px;
+    letter-spacing: 0.1px;
+  }
+}
+
+// PC表示もresultでまず大きさを指定しては？
+.results-btn{
+  max-width: 100%;
+}
+
+.result-btn-link{
+  font-family: $font-en; 
+  display: inline-block;
+  color:#fff;
+  border:solid 1px #fff;
+  @include mq(md){
+    padding:20px 80px;
+    letter-spacing: 4px;
+    font-weight: 600;
+    font-size: 20px;
+    margin: 0 0 60px 60px;
+  }
+  @include mq(sm){
+    font-style: 18px;
+    letter-spacing: 3.6pt;
+    display: block;
+    width:316px;
+    height:54px;
+    line-height: 54px;
+    text-align: center;
+    max-width:100%;
+    margin:0 auto;
+  }
+  transition:all 0.5s;
+  &:hover{
+    background: #FFFFFF;
+    color:#3E3E3E;
+  }
+}
+
+// pagenationの設定
+.swiper-pagination{
+  text-align: left;
+  position:static;
+  padding:40px 0;
+  @include mq(sm){
+    text-align:center;
+    padding:25px 15px 23px 0;
+  }
+}
+
+.swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet{
+  margin:0 10px;
+}
+
+.swiper-pagination-bullet{
+  background: #FFF;
+  display: inline-block;
+  width:12px;
+  height:12px;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active{
+  position:relative;
+  z-index: 10;
+  &::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    width:20px;
+    height:20px;
+    border-radius: 50%;
+    border:solid 1px #fff;
+  }
+}
+
+// ------------------------------------------------------------------------
+// price
+// ------------------------------------------------------------------------
+.price{
+  padding:125px 160px;
+  @include mq(sm){
+    padding:43px 15px 60px;
+  }
+}
+
+.price-head{
+  text-align: center;
+  padding-bottom: 61px;
+  @include mq(sm){
+    padding-bottom: 43px;
+  }
+}
+
+.price__table{
+  font-family: $font-en;
+  font-weight: 600;
+  // 二重線解除
+  border-collapse: collapse;
+  background: #fff;
+  font-size: 24px;
+  letter-spacing: 0;
+  width: 100%;
+  th,td{
+    border: 1px solid #707070;
+    @include mq(sm){
+      font-size:20px;
+    }
+  }
+  th{
+    color:#fff;
+    width:27.3%;
+    background: $font-main;
+    @include mq(sm){
+      width:29%;
+    }
+  }
+  td{
+    width:72.7%;
+    padding:18px 0 18px 40px;
+    @include mq(sm){
+      padding:18px 0 16px 21px;
+    }
+  }
+}
+
+.price-attention{
+  padding-top:10px;
+  font-size: 11px;
+  letter-spacing: 0;
+  @include mq(sm){
+    font-size: 12px;
+  }
+}
+
+// ------------------------------------------------------------------------
+// comments
+// ------------------------------------------------------------------------
+
+.comments{
+  padding:0 40px 122px;
+  display: flex;
+  align-items: center;
+  position:relative;
+  // backgroundを起点としてposition:relativeをかける。
+  @include mq(sm){
+    display:block;
+    margin-top:60px;
+    width:100%;
+    height:423px;
+    background: $font-main;
+    position: relative;
+    // position:absoluteで邪魔する
+    // padding:0 16px 122px;
+  }
+}
+
+.comment-background{
+    position:absolute;
+    display: block;    
+    bottom:0;
+    left:0;
+    // 疑問 padding-topの計算が合わない
+    padding-top:45%;
+    width:76.56%;  
+    background: $font-main; 
+    @include mq(sm){
+      width:100%;
+      bottom: 69px;
+      padding-top:113%;
+      z-index: 0;
+    }
+}
+
+.comments-left{
+  flex: 0 1 55.5%;
+  padding:120px 60px;
+  background: #fff;
+  box-shadow: 0px 0px 10px #00000029;
+  z-index: 5;
+  @include mq(sm){
+    position:absolute;
+    width: 91.5%;
+    padding:42px 19.2px;
+    top:-62px;
+    left:50%;
+    transform: translateX(-50%);
+  }
+}
+
+.comment-container{
+  display:flex;
+  padding-top:60px;
+  @include mq(sm){
+    padding-top:42px;
+    & + &{
+      padding-top:34px;
+    }
+  }
+}
+
+.comment-img{
+  flex:0 0 100px;
+  @include mq(sm){
+    flex:0 0 60px;
+  }
+}
+
+.comment-text{
+  padding-left:32px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  @include mq(sm){
+    padding-left:21px;
+    line-height: 1.42857;
+    font-size: 14px;
+  }
+}
+.comment-right{
+  z-index: 5;
+}
+
+
+// ------------------------------------------------------------------------
+// Q&A
+// ------------------------------------------------------------------------
+.qa__inner{
+  width: 100%;
+  background: url(../img/PC/qa-bg.png) no-repeat center center/cover;
+  padding-bottom: 120px;
+  @include mq(sm){
+    padding-bottom: 66px;
+  }
+}
+
+.qa__head{
+  padding:64px 0;
+  letter-spacing: 0;
+  text-align: center;
+  @include mq(sm){
+    padding:44px 0;
+  }
+}
+
+.qa__items{
+  padding:0 40px;
+  width: 54%;
+  margin-left: auto;
+  @include mq(sm){
+    width:100%;
+    padding:0 15px;
+    font-size: 14px;
+  }
+}
+
+.qa__item{
+  background: #fff;
+  border-radius:4px;
+  padding:18px 16px 16px;
+  & + &{
+    margin-top:34px;
+    @include mq(sm){
+      margin-top:25px;
+    }
+  }
+}
+
+.qa-box__q{
+  font-weight: 700;
+  padding-left:40px;
+  position: relative;
+  @include mq(sm){
+    font-size:16px;
+  }
+  &::before{
+    content:"Q";
+    color:white;
+    position:absolute;
+    display: block;
+    text-align: center;
+    font-family: $font-en;
+    line-height: 24px;
+    top:50%;
+    left:0px;
+    transform: translateY(-50%);
+    background: #3B69FF;
+    width:24px;
+    height:24px;
+    border-radius: 50%;
+  }
+}
+
+.qa-box__icon{
+  &.is-open{
+    .qa__bar1{
+      display: none;
+    }
+    .qa__bar2{
+      display: block;
+    }
+  }
+}
+.qa__bar1{
+    position:absolute;
+    display: block;
+    top:50%;
+    right: 0;
+    transform: translateY(-50%);
+    width:17px;
+    height:17px;
+    background: url(../img/PC/plus.png) no-repeat center center / contain;
+}
+
+.qa__bar2{
+  position:absolute;
+  display: block;
+  top:50%;
+  right: 0;
+  transform: translateY(-50%);
+  width:17px;
+  height:17px;
+  background: url(../img/PC/minus.png) no-repeat center center / contain;
+  display:none;
+}
+
+.qa-box__a{
+  margin-top:18px;
+  padding:13px 16px;
+  background: #3B69FF33;
+  border-radius:4px;
+  line-height: 1.5;
+  display:none;
+  letter-spacing:0;
+  @include mq(sm){
+    padding:9px 13px;
+  }
+  &.is-open{
+    display: block;
+  }
+}
+
+
+// ------------------------------------------------------------------------
+// access
+// ------------------------------------------------------------------------
+
+.access{
+  position:relative;
+  color:#fff;
+  padding:125px 40px 118px 100px; 
+  @include mq(sm){
+    padding:43px 16px 44px;
+  }
+  
+}
+
+.access-bg{
+  position:absolute;
+  display: block;
+  top:0;
+  left:0;
+  background: $font-main;
+  width: 76.56%;
+  height: 504px;
+  @include mq(sm){
+    width:100%;
+    height: 574px;
+  }
+}
+
+.access-inner{
+  position:relative;
+  display: flex;
+  z-index: 5;
+  @include mq(sm){
+    display:block;
+  }
+}
+
+.access-item{
+  flex:0 1 36.32%;
+  z-index: 5;
+  letter-spacing: 0;
+}
+
+.access-address{
+  padding-top:60px;
+  line-height: 1.5;
+  @include mq(sm){
+    padding-top:39px;
+    font-size: 14px;
+  }
+}
+
+.access-btn{
+  color:#fff;
+  display: none;
+  border: 1px solid #FFFFFF;
+  font-family:$font-en;
+  // pcとspでボタンの位置を変えた。（要答え確認）
+  @include mq(md){
+    &.is-pc{
+      display: inline-block;
+      font-weight: 600;
+      letter-spacing: 2px;
+      font-size: 20px;
+      margin-top:28px;
+      padding:20px 80px;
+    }
+  }
+  @include mq(sm){
+    &.is-sp{
+      display: block;
+      font-size: 18px;
+      line-height:54px;
+      margin-top:0px;
+      width:100%;
+      letter-spacing: 1.8px;
+      padding:0;
+      text-align: center;
+      height:54px ;
+    }
+  }
+  transition:all 0.5s;
+  &:hover{
+    background: #FFFFFF;
+    color:#3E3E3E;
+  }
+}
+
+.access-map{
+  flex: 0 1 63.68%;
+  @include mq(sm){
+    
+    padding:20px 0;
+  }
+}
+
+.iframe__wrap{
+  width:100%;
+  padding-top:71.625%;
+  position:relative;
+  iframe{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+  }
+}
+
+// ------------------------------------------------------------------------
+// contact us
+// ------------------------------------------------------------------------
+.contact{
+  background: url(../img/PC/contact-bg.png) no-repeat center center /cover;
+  padding:60px 160px;
+  @include mq(sm){
+  background: url(../img/PC/contact-bg.png) no-repeat center center / cover;
+  padding:54px 16px 40px; 
+  }
+}
+
+.contact-inner{
+}
+
+.contact-head{
+  background: url(../img/PC/contact1.png) no-repeat center center / cover;
+  color:#fff;
+  padding:63px 63px 58px;
+  border-radius: 12px 12px 0 0;
+  @include mq(sm){
+    padding:44px 16px 41px;
+    background: url(../img/PC/contact1.png) no-repeat center center / cover;
+  }
+}
+
+.contact-head-title{
+  text-align: center;
+}
+
+.contact-head-text{
+  padding-top:20px;
+  letter-spacing: 0;
+  text-align: center;
+  @include mq(sm){
+    font-size:14px;
+    padding-top:15px;
+  }
+}
+
+.contact-form-list{
+  background: #fff;
+  border-radius:0 0 12px 12px;
+  padding:60px 120px 60px 70px;
+  @include mq(sm){
+    padding:40px 12px 24px;
+  }
+}
+
+.contact-list{
+}
+
+.contact-form{
+ padding-left:50px;
+ @include mq(sm){
+   padding-left:0;
+ }
+}
+
+.contact-item{
+  display: flex;
+  font-size:16px;
+  @include mq(sm){
+    display:block;
+  }
+  & + &{
+    margin-top: 29px;
+  }
+  @include mq(md){
+    &:last-child{
+      display:block;
+    }
+    align-items: center;
+    dt{
+      flex: 0 1 26.1%;
+    }
+    dd{
+      flex: 0 1 73.9%;
+    }
+  }
+}
+
+.contact-form__label{
+  font-weight: 700;
+  label{
+    &.is_required{
+      display: inline-block;
+      position: relative;
+      @include mq(md){       
+        padding-right:52px;
+      }
+      @include mq(sm){
+        padding-right:44px;
+      }
+      &::after{
+        content:"必須";
+        position: absolute;
+        font-weight: 700;
+        font-size: 12px;
+        padding:2px 8px;
+        top :50%;
+        right:0px;
+        transform: translateY(-50%);
+        background-color: #FF4646;
+        border-radius: 2px;
+        color:#fff;
+        line-height: 1;
+        @include mq(sm){
+          right:-15px;
+        }
+      }}}
+}
+
+.contact-form__input{
+  margin:0;
+  padding:0;
+  select{
+    color:#3E3E3E;
+    font-size: 16px;
+    box-shadow: none;
+    border: 1px solid #707070;
+    width: 100%;
+    padding:11px 40px 11px 11px;
+    // デフォルトのアイコンを非表示
+    appearance: none;
+    @include mq(sm){
+      max-width:100%;
+      font-size:14px;
+    }
+    &:hover{
+      cursor:pointer;
+      box-shadow:0px 0px 5px #4973FF80 ;
+      // filter:drop-shadow(0px 0px 5px #4973FF80) ;
+    }
+}
+  [type="text"]{
+    width:100%;
+    box-shadow: none;
+    border-right:none;
+    border-left:none;
+    border-top:none;
+    border-bottom:1px solid #707070;
+    opacity: 0.5;
+    line-height: 32px;
+    padding-left:12px;
+    font-size: 16px;
+    letter-spacing: 0;
+    @include mq(sm){
+      padding:0;
+      line-height: 1.7143;
+      font-size: 14px;
+      margin-top:10px;
+    }
+    // 入力時も反映
+    &:hover,&:focus{
+      // デフォルトのcssを消す。
+      outline:none;
+      cursor: pointer;
+      border-bottom:1px solid #4973FF;
+      box-shadow: 0px 5pt 4pt -4pt #4973FF80;
+    }
+  }
+  textarea{
+    width:100%;
+    box-shadow:none;
+    height:200px;
+    margin-top:4px;
+  //   // 高さの変更をできないようにする
+    // resize:none;
+    color:inherit;
+    font-family: inherit;
+    @include mq(sm){
+      margin-top:13px;
+      height:160px;
+    }
+    &:hover,&:focus{
+      outline:0;
+      cursor:pointer;
+      border:1px solid #4973FF;
+      box-shadow:0pt 0pt 8pt #4973FF80 ;
+    }
+  }
+}
+
+// selectタグに擬似要素が使えないため、親要素にdivタグを追加。
+.select-wrap{
+  max-width: 178px;
+  @include mq(sm){
+    max-width:100%;
+    margin-top:12px;
+    letter-spacing: 0px;
+  }
+  position:relative;
+  &::before{
+    content:"";
+    position:absolute;
+    display:block;
+    width:6px;
+    height: 6px;
+    top:44%;
+    transform: translateY(-50%) rotate(-135deg);
+    right:16px;
+    border-top:2px solid $font-main;
+    border-left:2px solid $font-main;
+  }
+}
+.contact-form-radio{
+  [type="radio"]{
+    // デフォルトのラジオボタンを削除する。
+    appearance: none;
+  }
+  span{
+    display: inline-block;
+    margin-right: 34px;
+    //  ラジオボタンを入れる余白を作る。
+    padding-left:20px;
+    position:relative;
+    @include mq(sm){
+      margin:15px 34px 0 0;
+    }
+    &::before{
+      content:"";
+      position:absolute;
+      width:10px;
+      height:10px;
+      border-radius: 50%;
+      left:0;
+      top:50%;
+      transform: translateY(-50%);
+      border: 1px solid #707070;
+      background: #fff;
+    }
+    &::after{
+      content:"";
+      position:absolute;
+      background: #3B69FF;
+      width:6px;
+      height:6px;
+      border-radius: 50%;
+      top:50%;
+      left:3px;
+      transform: translateY(-50%);
+      // 基本はnoneにしておく
+      display:none;
+    }
+    &:hover{
+      cursor:pointer;
+      &::before{
+        border: 1px solid #3B69FF;
+        box-shadow: 0pt 0pt 6pt #4973FF33;
+      }
+    }
+    // ラジオボタンクリック時
+    &:active{
+      &::before{
+        background: #4973FF33;
+      }
+    }
+  }
+  // ラジオボタンの選択時の挙動を示したもの
+  [type="radio"]:checked + span {
+    &::after{
+      display:block;
+    }
+  }
+}
+
+.contact-radio-label{
+  position:relative;
+}
+
+.contact-radio-input{
+  position:absolute;
+  left:0;
+  top:50%;
+  transform: translateY(-50%);
+}
+
+.contact-footer{
+  margin-top:38px;
+  @include mq(sm){
+    margin-top:28px;
+  }
+}
+
+.contact-footer-text{
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0;
+  @include mq(sm){
+    font-size: 16px;
+  }
+  [type="checkbox"]{
+    // デフォルトのチェックボックスを削除する。
+    display: none;
+  }
+  [type="checkbox"]:checked + span{
+    &::after{
+      display: block;
+    }
+  }
+  span{
+    padding-left:40px;
+    position:relative;
+    &::before{
+      position:absolute;
+      content:"";
+      display: block;
+      width:18px;
+      height:18px;
+      top:50%;
+      left:0;
+      transform: translateY(-50%);
+      border: 1px solid #707070;
+      @include mq(sm){
+        width:16px;
+        height:16px;
+      }
+    }
+    &::after{
+      position:absolute;
+      content:"";
+      height:8px;
+      width:17px;
+      border-left:solid 2px #3B69FF;
+      border-bottom:solid 2px #3B69FF;
+      left:1px;
+      top:38%;
+      transform: translateY(-50%) rotate(-45deg);
+      display:none;
+    }
+    &:hover{
+      cursor:pointer;
+      &::before{
+        border: 1px solid #4973FF;
+        box-shadow: 0pt 0pt 5pt #4973FF33;
+      }
+    }
+    &:active{
+      &::before{
+        background: #4973FF33;
+      }
+    }
+  }
+}
+
+.util-link{
+  display: block;
+  color:#fff;
+  background: #FFAA3B;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.45px;
+  padding:14px 50px;
+  box-shadow: 0px 3px 5px #00000033;
+  margin-top:40px;
+  @include mq(sm){
+    margin:34px auto 17px;
+    font-size: 16px;
+  }
+}
+
+// ------------------------------------------------------------------------
+// footer
+// ------------------------------------------------------------------------
+.footer{
+  background: #3E3E3E; 
+}
+
+.footer-container{
+  @include mq(md){
+    padding:55px 160px 65px;
+    display: flex;
+  }
+  @include mq(sm){
+    padding-bottom:15px;
+  }
+  color:#fff;
+
+}
+
+.footer-container-left{
+  @include mq(sm){
+    text-align:center;
+  }
+}
+
+.footer-sns-list{
+  display: flex;
+  @include mq(sm){
+    justify-content: center;
+    padding-top:55px;
+  }
+}
+.footer-sns-item{
+  & + &{
+    padding-left:32px;
+    @include mq(sm){
+      padding-left:50px;
+    }
+  }
+}
+.footer-sns-item-link{
+  // fontawesomeの大きさはfont-sizeで変える。
+  font-size:39px;
+  color:#fff;
+  opacity:0.6;
+  @include mq(sm){
+    font-size:39px;
+  }
+}
+
+.footer-item-list{
+  margin-top:34px;
+  @include mq(sm){
+    font-size: 14px;
+  }
+}
+
+.footer-item{
+  & + &{
+    margin-top:20px;
+    @include mq(sm){
+      margin-top:24px;
+    }
+  }
+}
+
+.footer-nav-link{
+  color:#fff;
+}
+
+.footer-container-right{
+  margin-left:auto;
+  @include mq(sm){
+    text-align:center;
+    margin:43px auto;
+  }
+}
+
+.footer-title{
+  margin-top: 10px;
+  font-weight: 700;
+  font-family: $font-en;
+  font-size: 40px;
+  line-height: 1;
+  @include mq(sm){
+    font-size:32px;
+  }
+}
+
+.footer-text{
+  color:#fff;
+  opacity:60%;
+  letter-spacing: 0.3px;
+  font-family: $font-en;
+  font-size: 12px;
+  text-align: right;
+  margin-top:14px;
+  @include mq(sm){
+    text-align:center;
+  }
+}
+
+.to-top{
+  position:fixed;
+  right:30px;
+  bottom:30px;
+  width:70px;
+  height:70px;
+  z-index: 10;
+  @include mq(sm){
+    right:16px;
+    bottom:13px;
+    width:50px;
+    height:50px;
+  }
+}
